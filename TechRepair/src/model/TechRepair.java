@@ -105,5 +105,37 @@ public class TechRepair {
         }
         return false;
     }
+    //3. REGISTRAR TECNICO
+    public boolean registrarTecnico(Tecnico tecnico) {
+        boolean existe = listaTecnicos.stream()
+                .anyMatch(tecnicoExistente -> tecnicoExistente.getCodigo().equals(tecnico.getCodigo()) || tecnicoExistente.getDocumento().equals(tecnico.getDocumento()));
+        if (!existe) {
+            listaTecnicos.add(tecnico);
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<Tecnico> buscarTecnicoPorCodigo(String codigo) {
+        return listaTecnicos.stream()
+                .filter(tecnico -> tecnico.getCodigo().equals(codigo))
+                .findFirst();
+    }
+
+    public boolean actualizarTecnico(String codigo, String nuevoNombre, Especialidad nuevaEspecialidad, EstadoLaboral nuevoEstado) {
+        Optional<Tecnico> tecnicoOpt = buscarTecnicoPorCodigo(codigo);
+        if (tecnicoOpt.isPresent()) {
+            Tecnico tecnico = tecnicoOpt.get();
+            tecnico.setNombre(nuevoNombre);
+            tecnico.setEspecialidad(nuevaEspecialidad);
+            tecnico.setEstadoLaboral(nuevoEstado);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarTecnico(String codigo) {
+        return listaTecnicos.removeIf(tecnico -> tecnico.getCodigo().equals(codigo));
+    }
 
 }
