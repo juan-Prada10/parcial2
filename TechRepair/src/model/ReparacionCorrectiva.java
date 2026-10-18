@@ -7,7 +7,7 @@ public class ReparacionCorrectiva extends Servicio {
     private List<RepuestoUsado> listaRepuestosUsados;
 
     public ReparacionCorrectiva(String codigo, String nombre, String descripcion) {
-        super(codigo, nombre, descripcion, 45000.0);
+        super(codigo, nombre, descripcion, 45000.0, null);
         this.listaRepuestosUsados = new ArrayList<>();
     }
 

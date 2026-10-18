@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,7 @@ public class TechRepair {
     private String direccion;
     private final String nit;
 
-    private List<InventarioRepuesto> listaInventarioRepuesto= new ArrayList<>();
+    private List<InventarioRepuesto> listaInventarioRepuesto = new ArrayList<>();
     private List<OrdenServicio> listaOrdenServicio = new ArrayList<>();
     private List<Cliente> listaCliente = new ArrayList<>();
     private List<Tecnico> listaTecnicos = new ArrayList<>();
@@ -19,7 +20,7 @@ public class TechRepair {
         this.direccion = direccion;
     }
 
-    public String getNit(){
+    public String getNit() {
         return nit;
     }
 
@@ -96,6 +97,7 @@ public class TechRepair {
     public boolean eliminarCliente(String documento) {
         return listaCliente.removeIf(cliente -> cliente.getDocumento().equals(documento));
     }
+
     //2. REGISTRAR EQUIPO
     public boolean registrarEquipo(String documentoCliente, EquipoTecnologico equipo) {
         Optional<Cliente> clienteOpt = buscarClientePorDocumento(documentoCliente);
@@ -105,6 +107,7 @@ public class TechRepair {
         }
         return false;
     }
+
     //3. REGISTRAR TECNICO
     public boolean registrarTecnico(Tecnico tecnico) {
         boolean existe = listaTecnicos.stream()
@@ -137,6 +140,7 @@ public class TechRepair {
     public boolean eliminarTecnico(String codigo) {
         return listaTecnicos.removeIf(tecnico -> tecnico.getCodigo().equals(codigo));
     }
+
     //4. REGISTRAR REPUESTO
     public boolean registrarRepuesto(InventarioRepuesto repuesto) {
         boolean existe = listaInventarioRepuesto.stream()
@@ -170,4 +174,18 @@ public class TechRepair {
         return listaInventarioRepuesto.removeIf(respuesto -> respuesto.getCodigo().equals(codigo));
     }
 
+    //5. CREAR ORDEN SERVICIO
+    public OrdenServicio crearOrdenServicio(String codigo, String documentoCliente, String observaciones) {
+        Optional<Cliente> clienteOpt = buscarClientePorDocumento(documentoCliente);
+        if (clienteOpt.isPresent()) {
+            OrdenServicio orden = new OrdenServicio(codigo, LocalDate.now(), observaciones, Estado.ABIERTA, this, clienteOpt.get(), new ArrayList<>()
+            );
+            listaOrdenServicio.add(orden);
+            return orden;
+        }
+        return null;
+    }
+    
 }
+
+

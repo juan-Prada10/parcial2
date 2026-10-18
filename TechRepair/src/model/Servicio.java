@@ -8,7 +8,7 @@ public abstract class Servicio {
     protected double tarifaBase;
     private Detalle ownedByDetalle;
 
-    public Servicio(String codigo, String nombre, String descripcion, double tarifaBase) {
+    public Servicio(String codigo, String nombre, String descripcion, double tarifaBase, Detalle ownedByDetalle) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;

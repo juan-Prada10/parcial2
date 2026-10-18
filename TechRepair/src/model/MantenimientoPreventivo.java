@@ -4,7 +4,7 @@ public class MantenimientoPreventivo extends Servicio {
     private TipoEquipo tipoEquipo;
 
     public MantenimientoPreventivo(String codigo, String nombre, String descripcion, TipoEquipo tipoEquipo) {
-        super(codigo, nombre, descripcion, obtenerTarifaPorTipo(tipoEquipo));
+        super(codigo, nombre, descripcion, obtenerTarifaPorTipo(tipoEquipo), null);
         this.tipoEquipo = tipoEquipo;
     }
 
