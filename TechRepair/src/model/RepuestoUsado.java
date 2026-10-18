@@ -7,7 +7,7 @@ public class RepuestoUsado {
 
     private ReparacionCorrectiva ownedByReparacionCorrectiva;
 
-    public RepuestoUsado(String codigo, byte cantidad, InventarioRepuesto inventarioRepuesto) {
+    public RepuestoUsado(String codigo, byte cantidad, InventarioRepuesto inventarioRepuesto,  ReparacionCorrectiva ownedByReparacionCorrectiva) {
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.inventarioRepuesto = inventarioRepuesto;

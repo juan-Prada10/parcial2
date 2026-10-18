@@ -137,5 +137,37 @@ public class TechRepair {
     public boolean eliminarTecnico(String codigo) {
         return listaTecnicos.removeIf(tecnico -> tecnico.getCodigo().equals(codigo));
     }
+    //4. REGISTRAR REPUESTO
+    public boolean registrarRepuesto(InventarioRepuesto repuesto) {
+        boolean existe = listaInventarioRepuesto.stream()
+                .anyMatch(r -> repuesto.getCodigo().equals(repuesto.getCodigo()));
+        if (!existe) {
+            listaInventarioRepuesto.add(repuesto);
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<InventarioRepuesto> buscarRepuestoPorCodigo(String codigo) {
+        return listaInventarioRepuesto.stream()
+                .filter(repuesto -> repuesto.getCodigo().equals(codigo))
+                .findFirst();
+    }
+
+    public boolean actualizarRepuesto(String codigo, String nuevoNombre, double nuevoPrecio, int nuevaCantidad) {
+        Optional<InventarioRepuesto> repuestoOpt = buscarRepuestoPorCodigo(codigo);
+        if (repuestoOpt.isPresent()) {
+            InventarioRepuesto respuesto = repuestoOpt.get();
+            respuesto.setNombre(nuevoNombre);
+            respuesto.setPrecioUnitario(nuevoPrecio);
+            respuesto.setCantidadDisponible(nuevaCantidad);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarRepuesto(String codigo) {
+        return listaInventarioRepuesto.removeIf(respuesto -> respuesto.getCodigo().equals(codigo));
+    }
 
 }

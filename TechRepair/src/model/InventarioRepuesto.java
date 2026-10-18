@@ -9,7 +9,7 @@ public class InventarioRepuesto {
     private Compatibilidad categoriaCompatibilidad;
     private TechRepair ownedByTechRepair;
 
-    public InventarioRepuesto(String codigo, String nombre, String descripcion, double precioUnitario, int cantidadDisponible, Compatibilidad categoriaCompatibilidad) {
+    public InventarioRepuesto(String codigo, String nombre, String descripcion, double precioUnitario, int cantidadDisponible, Compatibilidad categoriaCompatibilidad, TechRepair ownedByTechRepair) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
