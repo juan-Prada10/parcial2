@@ -6,12 +6,14 @@ public abstract class Servicio {
     protected String nombre;
     protected String descripcion;
     protected double tarifaBase;
+    private Detalle ownedByDetalle;
 
     public Servicio(String codigo, String nombre, String descripcion, double tarifaBase) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tarifaBase = tarifaBase;
+        this.ownedByDetalle = ownedByDetalle;
     }
 
     public abstract double calcularTotalServicio(byte horasTrabajo);
@@ -46,5 +48,13 @@ public abstract class Servicio {
 
     public void setTarifaBase(double tarifaBase) {
         this.tarifaBase = tarifaBase;
+    }
+
+    public Detalle getOwnedByDetalle() {
+        return ownedByDetalle;
+    }
+
+    public void setOwnedByDetalle(Detalle ownedByDetalle) {
+        this.ownedByDetalle = ownedByDetalle;
     }
 }

@@ -8,6 +8,10 @@ public class MantenimientoPreventivo extends Servicio {
         this.tipoEquipo = tipoEquipo;
     }
 
+    public void setTipoEquipo(TipoEquipo tipoEquipo) {
+        this.tipoEquipo = tipoEquipo;
+    }
+
     private static double obtenerTarifaPorTipo(TipoEquipo tipo) {
         if (tipo == TipoEquipo.COMPUTADORES_PORTATILES) {
             return 60000.0;
