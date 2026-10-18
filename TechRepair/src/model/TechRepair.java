@@ -67,11 +67,12 @@ public class TechRepair {
     //1. REGISTRO CLIENTES
     public boolean registrarCliente(Cliente cliente) {
         boolean existe = listaCliente.stream()
-                .anyMatch(clienteExistente -> clienteExistente.getDocumento().equals(cliente.getDocumento()));
+                .anyMatch(client -> client.getDocumento().equals(cliente.getDocumento()));
         if (!existe) {
             listaCliente.add(cliente);
             return true;
         }
+        System.out.println("Ya existe un cliente con ese documento.");
         return false;
     }
 
@@ -80,7 +81,6 @@ public class TechRepair {
                 .filter(cliente -> cliente.getDocumento().equals(documento))
                 .findFirst();
     }
-
     public boolean actualizarCliente(String documento, String nuevoNombre, String nuevoTelefono, String nuevoCorreo, String nuevaDireccion) {
         Optional<Cliente> clienteOpt = buscarClientePorDocumento(documento);
         if (clienteOpt.isPresent()) {
@@ -97,9 +97,15 @@ public class TechRepair {
     public boolean eliminarCliente(String documento) {
         return listaCliente.removeIf(cliente -> cliente.getDocumento().equals(documento));
     }
-
     //2. REGISTRAR EQUIPO
     public boolean registrarEquipo(String documentoCliente, EquipoTecnologico equipo) {
+        boolean codigoRepetido = listaCliente.stream()
+                .flatMap(cliente -> cliente.getListaEquipoTecnologico().stream())
+                .anyMatch(equipoTecnologico -> equipoTecnologico.getCodigo().equals(equipo.getCodigo()));
+        if (codigoRepetido) {
+            System.out.println("Ya existe un equipo registrado con ese código.");
+            return false;
+        }
         Optional<Cliente> clienteOpt = buscarClientePorDocumento(documentoCliente);
         if (clienteOpt.isPresent()) {
             clienteOpt.get().getListaEquipoTecnologico().add(equipo);
@@ -118,7 +124,6 @@ public class TechRepair {
         }
         return false;
     }
-
     public Optional<Tecnico> buscarTecnicoPorCodigo(String codigo) {
         return listaTecnicos.stream()
                 .filter(tecnico -> tecnico.getCodigo().equals(codigo))
@@ -154,28 +159,34 @@ public class TechRepair {
 
     public Optional<InventarioRepuesto> buscarRepuestoPorCodigo(String codigo) {
         return listaInventarioRepuesto.stream()
-                .filter(repuesto -> repuesto.getCodigo().equals(codigo))
+                .filter(r -> r.getCodigo().equals(codigo))
                 .findFirst();
     }
 
     public boolean actualizarRepuesto(String codigo, String nuevoNombre, double nuevoPrecio, int nuevaCantidad) {
-        Optional<InventarioRepuesto> repuestoOpt = buscarRepuestoPorCodigo(codigo);
-        if (repuestoOpt.isPresent()) {
-            InventarioRepuesto respuesto = repuestoOpt.get();
-            respuesto.setNombre(nuevoNombre);
-            respuesto.setPrecioUnitario(nuevoPrecio);
-            respuesto.setCantidadDisponible(nuevaCantidad);
+        Optional<InventarioRepuesto> repOpt = buscarRepuestoPorCodigo(codigo);
+        if (repOpt.isPresent()) {
+            InventarioRepuesto r = repOpt.get();
+            r.setNombre(nuevoNombre);
+            r.setPrecioUnitario(nuevoPrecio);
+            r.setCantidadDisponible(nuevaCantidad);
             return true;
         }
         return false;
     }
 
     public boolean eliminarRepuesto(String codigo) {
-        return listaInventarioRepuesto.removeIf(respuesto -> respuesto.getCodigo().equals(codigo));
+        return listaInventarioRepuesto.removeIf(r -> r.getCodigo().equals(codigo));
     }
 
     //5. CREAR ORDEN SERVICIO
     public OrdenServicio crearOrdenServicio(String codigo, String documentoCliente, String observaciones) {
+        boolean existe = listaOrdenServicio.stream()
+                .anyMatch(o -> o.codigo().equals(codigo));
+        if (existe) {
+            System.out.println("Ya existe una orden con el código " + codigo);
+            return null;
+        }
         Optional<Cliente> clienteOpt = buscarClientePorDocumento(documentoCliente);
         if (clienteOpt.isPresent()) {
             OrdenServicio orden = new OrdenServicio(codigo, LocalDate.now(), observaciones, Estado.ABIERTA, this, clienteOpt.get(), new ArrayList<>()
@@ -185,7 +196,7 @@ public class TechRepair {
         }
         return null;
     }
-    
+
 }
 
 
