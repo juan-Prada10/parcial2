@@ -96,5 +96,14 @@ public class TechRepair {
     public boolean eliminarCliente(String documento) {
         return listaCliente.removeIf(cliente -> cliente.getDocumento().equals(documento));
     }
+    //2. REGISTRAR EQUIPO
+    public boolean registrarEquipo(String documentoCliente, EquipoTecnologico equipo) {
+        Optional<Cliente> clienteOpt = buscarClientePorDocumento(documentoCliente);
+        if (clienteOpt.isPresent()) {
+            clienteOpt.get().getListaEquipoTecnologico().add(equipo);
+            return true;
+        }
+        return false;
+    }
 
 }
