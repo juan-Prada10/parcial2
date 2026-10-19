@@ -6,8 +6,8 @@ import java.util.List;
 public class ReparacionCorrectiva extends Servicio {
     private List<RepuestoUsado> listaRepuestosUsados;
 
-    public ReparacionCorrectiva(String codigo, String nombre, String descripcion) {
-        super(codigo, nombre, descripcion, 45000.0, null);
+    public ReparacionCorrectiva(String codigo, String nombre, String descripcion, double tarifaBase, Detalle detalle, TechRepair ownedByTechRepair) {
+        super(codigo, nombre, descripcion, 45000.0,detalle,ownedByTechRepair);
         this.listaRepuestosUsados = new ArrayList<>();
     }
 

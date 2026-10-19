@@ -3,8 +3,8 @@ package model;
 public class MantenimientoPreventivo extends Servicio {
     private TipoEquipo tipoEquipo;
 
-    public MantenimientoPreventivo(String codigo, String nombre, String descripcion, TipoEquipo tipoEquipo) {
-        super(codigo, nombre, descripcion, obtenerTarifaPorTipo(tipoEquipo), null);
+    public MantenimientoPreventivo(String codigo, String nombre, String descripcion, double tarifaBase, Detalle detalle, TechRepair ownedByTechRepair, TipoEquipo tipoEquipo) {
+        super(codigo, nombre, descripcion, obtenerTarifaPorTipo(tipoEquipo),detalle,ownedByTechRepair);
         this.tipoEquipo = tipoEquipo;
     }
 

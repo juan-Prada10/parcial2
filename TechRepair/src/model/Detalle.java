@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Detalle {
 
@@ -14,9 +15,9 @@ public class Detalle {
     private OrdenServicio ownedByOrdenServicio;
     private Tecnico tecnico;
     private EquipoTecnologico equipoTecnologico;
-    private List<Servicio> listaServicios= new ArrayList<>();
+    private Servicio servicio;
 
-    public Detalle(String codigo, EquipoTecnologico equipoTecnologico, Tecnico tecnico, OrdenServicio ownedByOrdenServicio, String observaciones, Estado estado, byte horasTrabajo, String descripcionFalla) {
+    public Detalle(String codigo, EquipoTecnologico equipoTecnologico, Tecnico tecnico, OrdenServicio ownedByOrdenServicio, String observaciones, Estado estado, byte horasTrabajo, String descripcionFalla, Servicio servicio) {
         this.codigo = codigo;
         this.equipoTecnologico = equipoTecnologico;
         this.tecnico = tecnico;
@@ -25,6 +26,7 @@ public class Detalle {
         this.estado = estado;
         this.horasTrabajo = horasTrabajo;
         this.descripcionFalla = descripcionFalla;
+        this.servicio=servicio;
     }
 
     public String getCodigo(){
@@ -79,12 +81,12 @@ public class Detalle {
         this.tecnico = tecnico;
     }
 
-    public List<Servicio> getListaServicios() {
-        return listaServicios;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setListaServicios(List<Servicio> listaServicios) {
-        this.listaServicios = listaServicios;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
     public EquipoTecnologico getEquipoTecnologico() {
@@ -94,4 +96,9 @@ public class Detalle {
     public void setEquipoTecnologico(EquipoTecnologico equipoTecnologico) {
         this.equipoTecnologico = equipoTecnologico;
     }
+
+    public double calcularSubTotalDetalle(){
+        return servicio.calcularTotalServicio(getHorasTrabajo());
+    }
+
 }

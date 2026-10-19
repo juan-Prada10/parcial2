@@ -1,7 +1,9 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Cliente {
 
@@ -84,4 +86,43 @@ public class Cliente {
     public void setListaEquipoTecnologico(List<EquipoTecnologico> listaEquipoTecnologico) {
         this.listaEquipoTecnologico = listaEquipoTecnologico;
     }
+
+    //CRUD
+
+    public Optional<EquipoTecnologico> buscarEquipo(String codigo){
+        return listaEquipoTecnologico.stream().filter(equipoTecnologico -> equipoTecnologico.getCodigo().equalsIgnoreCase(codigo)).findFirst();
+    }
+
+    public String crearPortatil(Portatil portatil){
+        Optional<EquipoTecnologico> equipoEncontrado = buscarEquipo(portatil.getCodigo());
+        if (equipoEncontrado.isEmpty()){
+            listaEquipoTecnologico.add(portatil);
+            return "El portatil se registro con exito";
+        }else{return "El portatil ya esta registrado";}
+    }
+
+    public String crearComputadorEscritorio(ComputadorEscritorio computadorEscritorio){
+        Optional<EquipoTecnologico> equipoEncontrado = buscarEquipo(computadorEscritorio.getCodigo());
+        if (equipoEncontrado.isEmpty()){
+            listaEquipoTecnologico.add(computadorEscritorio);
+            return "El computador de escritorio se registro con exito";
+        }else{return "El computador de escritorio ya esta registrado";}
+    }
+
+    public String crearTelefonoInteligente(TelefonoInteligente telefonoInteligente){
+        Optional<EquipoTecnologico> equipoEncontrado = buscarEquipo(telefonoInteligente.getCodigo());
+        if (equipoEncontrado.isEmpty()){
+            listaEquipoTecnologico.add(telefonoInteligente);
+            return "El portatil se registro con exito";
+        }else{return "El portatil ya esta registrado";}
+    }
+
+    public String eliminarEquipo(String codigo){
+        Optional<EquipoTecnologico> equipoEncontrado = buscarEquipo(codigo);
+        if (equipoEncontrado.isPresent()){
+            listaEquipoTecnologico.remove(equipoEncontrado.get());
+            return "Equipo eliminado con exito";
+        }else{return "El equipo no existe";}
+    }
+
 }

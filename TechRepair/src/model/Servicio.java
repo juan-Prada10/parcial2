@@ -6,14 +6,16 @@ public abstract class Servicio {
     protected String nombre;
     protected String descripcion;
     protected double tarifaBase;
-    private Detalle ownedByDetalle;
+    private Detalle detalle;
+    private TechRepair ownedByTechRepair;
 
-    public Servicio(String codigo, String nombre, String descripcion, double tarifaBase, Detalle ownedByDetalle) {
+    public Servicio(String codigo, String nombre, String descripcion, double tarifaBase, Detalle detalle, TechRepair ownedByTechRepair) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tarifaBase = tarifaBase;
-        this.ownedByDetalle = ownedByDetalle;
+        this.detalle=detalle;
+        this.ownedByTechRepair=ownedByTechRepair;
     }
 
     public abstract double calcularTotalServicio(byte horasTrabajo);
@@ -50,11 +52,11 @@ public abstract class Servicio {
         this.tarifaBase = tarifaBase;
     }
 
-    public Detalle getOwnedByDetalle() {
-        return ownedByDetalle;
+    public Detalle getDetalle() {
+        return detalle;
     }
 
-    public void setOwnedByDetalle(Detalle ownedByDetalle) {
-        this.ownedByDetalle = ownedByDetalle;
+    public void setDetalle(Detalle detalle) {
+        this.detalle = detalle;
     }
 }
