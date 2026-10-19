@@ -261,7 +261,8 @@ public class TechRepair {
         }else{return "El tecnico no se encuentra en servicio o el detalle no existe";}
     }
 
-    //8.
+    //8. Registrar repuestos utilizados
+    //(se encuentra en el main)
 
     //9.Calcular valor de un detalle
     public String calcularValorDetalle(String codigo){
@@ -351,7 +352,10 @@ public class TechRepair {
     }
 
     //16
+    //(se encuentra en el main)
+
     //17
+    //(se encuentra en el main)
     //18Consultar inventario crítico
 
     public List<InventarioRepuesto> repuestosCriticos(){

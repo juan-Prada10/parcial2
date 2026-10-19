@@ -101,4 +101,7 @@ public class Detalle {
         return servicio.calcularTotalServicio(getHorasTrabajo());
     }
 
+    public Optional<Object> getListaServicio() {
+        return Optional.empty();
+    }
 }
