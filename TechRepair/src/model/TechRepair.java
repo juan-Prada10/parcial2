@@ -158,28 +158,35 @@ public class TechRepair {
 
     //4. REGISTRAR REPUESTO
     public boolean registrarRepuesto(InventarioRepuesto repuesto) {
+        if (repuesto.getPrecioUnitario() <= 0 || repuesto.getCantidadDisponible() < 0) {
+            System.out.println("El precio debe ser mayor a 0 y las existencias no pueden ser negativas.");
+            return false;
+        }
         boolean existe = listaInventarioRepuesto.stream()
-                .anyMatch(r -> repuesto.getCodigo().equals(repuesto.getCodigo()));
+                .anyMatch(r -> r.getCodigo().equals(repuesto.getCodigo()));
         if (!existe) {
             listaInventarioRepuesto.add(repuesto);
             return true;
         }
+        System.out.println("Ya existe un repuesto con ese código.");
         return false;
     }
-
     public Optional<InventarioRepuesto> buscarRepuestoPorCodigo(String codigo) {
         return listaInventarioRepuesto.stream()
-                .filter(r -> r.getCodigo().equals(codigo))
+                .filter(repuesto -> repuesto.getCodigo().equals(codigo))
                 .findFirst();
     }
-
     public boolean actualizarRepuesto(String codigo, String nuevoNombre, double nuevoPrecio, int nuevaCantidad) {
+        if (nuevoPrecio <= 0 || nuevaCantidad < 0) {
+            System.out.println("El precio debe ser mayor a 0 y las existencias no pueden ser negativas.");
+            return false;
+        }
         Optional<InventarioRepuesto> repOpt = buscarRepuestoPorCodigo(codigo);
         if (repOpt.isPresent()) {
-            InventarioRepuesto r = repOpt.get();
-            r.setNombre(nuevoNombre);
-            r.setPrecioUnitario(nuevoPrecio);
-            r.setCantidadDisponible(nuevaCantidad);
+            InventarioRepuesto repuesto = repOpt.get();
+            repuesto.setNombre(nuevoNombre);
+            repuesto.setPrecioUnitario(nuevoPrecio);
+            repuesto.setCantidadDisponible(nuevaCantidad);
             return true;
         }
         return false;
@@ -188,6 +195,7 @@ public class TechRepair {
     public boolean eliminarRepuesto(String codigo) {
         return listaInventarioRepuesto.removeIf(r -> r.getCodigo().equals(codigo));
     }
+
 
     //5. CREAR ORDEN SERVICIO
     public OrdenServicio crearOrdenServicio(String codigo, String documentoCliente, String observaciones) {
@@ -207,6 +215,7 @@ public class TechRepair {
         return null;
     }
 
+<<<<<<< HEAD
     //6. Agregar detalle a una orden
 
     public List<EquipoTecnologico> equiposCliente(String documento){
@@ -393,3 +402,6 @@ public class TechRepair {
 }
 
 
+=======
+}
+>>>>>>> 559d08f8651ccb5c3a5b7e17d900df6a50b2f58e
