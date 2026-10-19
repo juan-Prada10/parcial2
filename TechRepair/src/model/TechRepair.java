@@ -258,7 +258,7 @@ public class TechRepair {
         if (tecnico.getEstadoLaboral()==EstadoLaboral.ACTIVO && detalleEncontrado.isPresent()){
             detalleEncontrado.get().setTecnico(tecnico);
             return "Tecnico registrado con exito";
-        }else{return "El tecnico no se encunetra en servicio o el detalle no existe";}
+        }else{return "El tecnico no se encuentra en servicio o el detalle no existe";}
     }
 
     //8.
@@ -351,6 +351,7 @@ public class TechRepair {
     }
 
     //16
+    //17
     //18Consultar inventario crítico
 
     public List<InventarioRepuesto> repuestosCriticos(){
