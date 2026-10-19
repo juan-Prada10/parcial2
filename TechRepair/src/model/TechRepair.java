@@ -214,8 +214,7 @@ public class TechRepair {
         }
         return null;
     }
-
-<<<<<<< HEAD
+    
     //6. Agregar detalle a una orden
 
     public List<EquipoTecnologico> equiposCliente(String documento){
@@ -402,6 +401,6 @@ public class TechRepair {
 }
 
 
-=======
-}
->>>>>>> 559d08f8651ccb5c3a5b7e17d900df6a50b2f58e
+
+
+
